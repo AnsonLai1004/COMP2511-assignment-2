@@ -25,7 +25,16 @@ public abstract class PlayerState {
         return player;
     }
 
-    public abstract void transitionInvisible();
-    public abstract void transitionInvincible();
-    public abstract void transitionBase();
+    public void transitionInvisible() {
+        Player player = getPlayer();
+        player.changeState(new InvisibleState(player));
+    };
+    public void transitionInvincible() {
+        Player player = getPlayer();
+        player.changeState(new InvincibleState(player));
+    };
+    public void transitionBase() {
+        Player player = getPlayer();
+        player.changeState(new BaseState(player));
+    };
 }
