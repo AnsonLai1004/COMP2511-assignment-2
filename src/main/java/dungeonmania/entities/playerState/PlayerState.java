@@ -34,7 +34,7 @@ public class PlayerState {
         isInvincible = true;
         isInvisible = false;
     };
-    
+
     public void transitionBase() {
         isInvincible = false;
         isInvincible = false;
