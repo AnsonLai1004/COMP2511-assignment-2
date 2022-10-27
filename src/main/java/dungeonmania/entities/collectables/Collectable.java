@@ -23,7 +23,4 @@ public abstract class Collectable extends Entity {
             map.destroyEntity(this);
         }
     }
-
-    
-    
 }
