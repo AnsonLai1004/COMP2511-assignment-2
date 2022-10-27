@@ -2,12 +2,12 @@ package dungeonmania.entities.playerState;
 
 import dungeonmania.entities.Player;
 
-public abstract class PlayerState {
+public class PlayerState {
     private Player player;
     private boolean isInvincible = false;
     private boolean isInvisible = false;
 
-    PlayerState(Player player, boolean isInvincible, boolean isInvisible) {
+    public PlayerState(Player player, boolean isInvincible, boolean isInvisible) {
         this.player = player;
         this.isInvincible = isInvincible;
         this.isInvisible = isInvisible;
@@ -25,7 +25,18 @@ public abstract class PlayerState {
         return player;
     }
 
-    public abstract void transitionInvisible();
-    public abstract void transitionInvincible();
-    public abstract void transitionBase();
+    public void transitionInvisible() {
+        isInvincible = false;
+        isInvisible = true;
+    };
+
+    public void transitionInvincible() {
+        isInvincible = true;
+        isInvisible = false;
+    };
+
+    public void transitionBase() {
+        isInvincible = false;
+        isInvincible = false;
+    };
 }
