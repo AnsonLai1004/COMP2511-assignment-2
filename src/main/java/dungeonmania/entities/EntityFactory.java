@@ -36,7 +36,7 @@ public class EntityFactory {
         int rate = config.optInt("spider_spawn_interval", 0);
         if (rate == 0 || (tick + 1) % rate != 0) return;
         int radius = 20;
-        Position player = map.getPlayer().getPosition();
+        Position player = map.getPosition();
 
         Spider dummySpider = buildSpider(new Position(0, 0)); // for checking possible positions
 
