@@ -20,8 +20,8 @@ public class BattleFacade {
 
     public void battle(Game game, Player player, Enemy enemy) {
         // 0. init
-        double initialPlayerHealth = player.getBattleStatistics().getHealth();
-        double initialEnemyHealth = enemy.getBattleStatistics().getHealth();
+        double initialPlayerHealth = player.getHealth();
+        double initialEnemyHealth = enemy.getHealth();
         String enemyString = NameConverter.toSnakeCase(enemy);
 
 
@@ -34,7 +34,7 @@ public class BattleFacade {
         if (effectivePotion != null) {
             playerBuff = player.applyBuff(playerBuff);
         } else {
-            for (BattleItem item : player.getInventory().getEntities(BattleItem.class)) {
+            for (BattleItem item : player.getEntities(BattleItem.class)) {
                 playerBuff = item.applyBuff(playerBuff);
                 battleItems.add(item);
             }
@@ -50,8 +50,8 @@ public class BattleFacade {
         List<BattleRound> rounds = BattleStatistics.battle(playerBattleStatistics, enemyBattleStatistics);
 
         // 3. update health to the actual statistics
-        player.getBattleStatistics().setHealth(playerBattleStatistics.getHealth());
-        enemy.getBattleStatistics().setHealth(enemyBattleStatistics.getHealth());
+        playerBaseStatistics.setHealth(playerBattleStatistics.getHealth());
+        enemyBaseStatistics.setHealth(enemyBattleStatistics.getHealth());
 
         // 4. call to decrease durability of items
         for (BattleItem item : battleItems) {

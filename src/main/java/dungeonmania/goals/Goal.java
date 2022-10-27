@@ -40,16 +40,16 @@ public class Goal {
             case "exit":
                 Player character = game.getPlayer();
                 Position pos = character.getPosition();
-                List<Exit> es = game.getMap().getEntities(Exit.class);
+                List<Exit> es = game.getEntities(Exit.class);
                 if (es == null || es.size() == 0) return false;
                 return es
                     .stream()
                     .map(Entity::getPosition)
                     .anyMatch(pos::equals);
             case "boulders":
-                return game.getMap().getEntities(Switch.class).stream().allMatch(s -> s.isActivated());
+                return game.getEntities(Switch.class).stream().allMatch(s -> s.isActivated());
             case "treasure":
-                return game.getInitialTreasureCount() - game.getMap().getEntities(Treasure.class).size() >= target;
+                return game.getInitialTreasureCount() - game.getEntities(Treasure.class).size() >= target;
             case "AND":
                 return goal1.achieved(game) && goal2.achieved(game);
             case "OR":
