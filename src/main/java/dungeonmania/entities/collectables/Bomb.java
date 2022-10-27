@@ -12,7 +12,7 @@ import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends Entity implements InventoryItem {
+public class Bomb extends Collectable implements InventoryItem {
     public enum State {
         SPAWNED,
         INVENTORY,
@@ -40,17 +40,11 @@ public class Bomb extends Entity implements InventoryItem {
     }
 
     @Override
-    public boolean canMoveOnto(GameMap map, Entity entity) {
-        return true;
-    }
-
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (state != State.SPAWNED) return;
         if (entity instanceof Player) {
-            if (!((Player) entity).pickUp(this)) return;
+            super.onOverlap(map, entity);
             subs.stream().forEach(s -> s.unsubscribe(this));
-            map.destroyEntity(this);
         }
         this.state = State.INVENTORY;
     }

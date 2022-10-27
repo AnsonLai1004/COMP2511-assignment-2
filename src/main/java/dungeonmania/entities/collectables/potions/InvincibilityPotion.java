@@ -21,4 +21,5 @@ public class InvincibilityPotion extends Potion {
                 true,
                 true));
     }
+
 }
