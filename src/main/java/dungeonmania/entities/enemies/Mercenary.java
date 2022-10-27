@@ -5,14 +5,16 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import dungeonmania.Game;
+import dungeonmania.entities.Bribe;
+import dungeonmania.entities.Bribeable;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
-import dungeonmania.entities.collectables.Treasure;
+// import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Mercenary extends Enemy implements Interactable {
+public class Mercenary extends Enemy implements Interactable, Bribeable {
     public static final int DEFAULT_BRIBE_AMOUNT = 1;
     public static final int DEFAULT_BRIBE_RADIUS = 1;
     public static final double DEFAULT_ATTACK = 5.0;
@@ -21,6 +23,7 @@ public class Mercenary extends Enemy implements Interactable {
     private int bribeAmount = Mercenary.DEFAULT_BRIBE_AMOUNT;
     private int bribeRadius = Mercenary.DEFAULT_BRIBE_RADIUS;
     private boolean allied = false;
+    private Bribe bribe = new Bribe();
 
     public Mercenary(Position position, double health, double attack, int bribeAmount, int bribeRadius) {
         super(position, health, attack);
@@ -38,29 +41,10 @@ public class Mercenary extends Enemy implements Interactable {
         super.onOverlap(map, entity);
     }
 
-    /**
-     * check whether the current merc can be bribed
-     * @param player
-     * @return
-     */
-    private boolean canBeBribed(Player player) {
-        return bribeRadius >= 0 && player.countEntityOfType(Treasure.class) >= bribeAmount;
-    }
-
-    /**
-     * bribe the merc
-     */
-    private void bribe(Player player) {
-        for (int i = 0; i < bribeAmount; i++) {
-            player.use(Treasure.class);
-        }
-
-    }
-
     @Override
     public void interact(Player player, Game game) {
         allied = true;
-        bribe(player);
+        bribe.bribe(player, this);
     }
 
     @Override
@@ -90,6 +74,16 @@ public class Mercenary extends Enemy implements Interactable {
 
     @Override
     public boolean isInteractable(Player player) {
-        return !allied && canBeBribed(player);
+        return !allied && bribe.canBeBribed(player, this);
+    }
+
+    @Override
+    public int getBribeRadius() {
+        return bribeRadius;
+    }
+
+    @Override
+    public int getBribeAmount() {
+        return bribeAmount;
     }
 }
