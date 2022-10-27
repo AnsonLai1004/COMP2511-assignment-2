@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.battles.Battleable;
 import dungeonmania.entities.collectables.Bomb;
@@ -183,5 +184,17 @@ public class Player extends Entity implements Battleable {
     @Override
     public void onDestroy(GameMap gameMap) {
         return;
+    }
+
+    public double getHealth() {
+        return battleStatistics.getHealth();
+    }
+
+    public <T> List<T> getEntities(Class<T> clz) {
+        return inventory.getEntities(clz);
+    }
+
+    public void useWeapon(Game game) {
+        getWeapon().use(game);
     }
 }

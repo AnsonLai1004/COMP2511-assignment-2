@@ -13,10 +13,14 @@ import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.potions.Potion;
 import dungeonmania.entities.enemies.Enemy;
+import dungeonmania.entities.enemies.ZombieToastSpawner;
+import dungeonmania.entities.inventory.Inventory;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.goals.Goal;
 import dungeonmania.map.GameMap;
+import dungeonmania.response.models.BattleResponse;
 import dungeonmania.util.Direction;
+import dungeonmania.util.Position;
 
 public class Game {
     private String id;
@@ -83,10 +87,10 @@ public class Game {
      */
     public void battle(Player player, Enemy enemy) {
         battleFacade.battle(this, player, enemy);
-        if (player.getBattleStatistics().getHealth() <= 0) {
+        if (player.getHealth() <= 0) {
             map.destroyEntity(player);
         }
-        if (enemy.getBattleStatistics().getHealth() <= 0) {
+        if (enemy.getHealth() <= 0) {
             map.destroyEntity(enemy);
         }
     }
@@ -221,4 +225,39 @@ public class Game {
         return initialTreasureCount;
     }
 
+    public List<Entity> getEntities(Position pos) {
+        return getMap().getEntities(pos);
+    }
+
+    public void moveTo(Entity entity, Position position) {
+        getMap().moveTo(entity, position);
+    }
+
+    public void spawnZombie(Game game, ZombieToastSpawner spawner) {
+        getEntityFactory().spawnZombie(game, spawner);
+    }
+
+    public <T extends Entity> List<T> getEntities(Class<T> type) {
+        return getMap().getEntities(type);
+    }
+
+    public void spawnSpider(Game game) {
+        getEntityFactory().spawnSpider(game);
+    }
+
+    public List<Entity> getEntities() {
+        return getMap().getEntities();
+    }
+
+    public Inventory getInventory() {
+        return getPlayer().getInventory();
+    }
+
+    public List<String> getBuildables() {
+        return getPlayer().getBuildables();
+    }
+
+    public List<BattleResponse> getBattleResponses() {
+        return getBattleFacade().getBattleResponses();
+    }
 }
