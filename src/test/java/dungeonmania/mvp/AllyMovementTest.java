@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AllyMovementTest {
     @Test
     @DisplayName("Test ally follow player")
-    public void AllyMovement() {
+    public void allyMovement() {
         //                                  Wall    Wall   Wall    Wall    Wall    Wall
         // P1       P2      P3/P7    M5     M4      M3      M2      M1      .      Wall
         //               P4/P6/M8    M6     Wall    Wall   Wall    Wall    Wall    Wall
-        //                  P5/M7          
+        //                  P5/M7
 
         DungeonManiaController dmc = new DungeonManiaController();
         DungeonResponse res = dmc.newGame("d_AllyTest_followPlayer", "c_AllyTest_followPlayer");
