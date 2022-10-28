@@ -49,16 +49,6 @@ public class Bomb extends Collectable implements InventoryItem {
         this.state = State.INVENTORY;
     }
 
-    @Override
-    public void onMovedAway(GameMap map, Entity entity) {
-        return;
-    }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
-
     public void onPutDown(GameMap map, Position p) {
         translate(Position.calculatePositionBetween(getPosition(), p));
         map.addEntity(this);
