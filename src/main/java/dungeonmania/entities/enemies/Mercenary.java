@@ -1,5 +1,7 @@
 package dungeonmania.entities.enemies;
 
+import java.util.List;
+
 import dungeonmania.Game;
 import dungeonmania.entities.Bribe;
 import dungeonmania.entities.Bribeable;
@@ -20,6 +22,7 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
     private int bribeRadius = Mercenary.DEFAULT_BRIBE_RADIUS;
     private boolean allied = false;
     private Bribe bribe = new Bribe();
+    private boolean isCardinallyAdjacent = false;
 
     public Mercenary(Position position, double health, double attack, int bribeAmount, int bribeRadius) {
         super(position, health, attack);
@@ -47,10 +50,12 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
     public void move(Game game) {
         Position nextPos;
         GameMap map = game.getMap();
-        if (allied) {
-            // Move random
-            super.move(game);
+        if (allied && isCardinallyAdjacent) {
+            // follow player 
+            nextPos = map.getPlayer().getPreviousPosition();
+            map.moveTo(this, nextPos);
         } else {
+            if (checkIsCardinallyAdjacent(map)) return;
             // Follow hostile
             nextPos = map.dijkstraPathFind(getPosition(), map.getPlayer().getPosition(), this);
             map.moveTo(this, nextPos);
@@ -70,5 +75,19 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
     @Override
     public int getBribeAmount() {
         return bribeAmount;
+    }
+
+    // set isCardinallyAdjacent to true if the enemy became ally and is cardinallyAdjacent to player
+    public boolean checkIsCardinallyAdjacent(GameMap map) {
+        if (!allied) return false;
+        List<Position> pos = getPosition().getCardinallyAdjacentPositions();
+        Position playerPos = map.getPlayer().getPosition();
+        if (pos.contains(playerPos)) {
+            isCardinallyAdjacent = true;
+            Position playerPrePos = map.getPlayer().getPreviousPosition();
+            map.moveTo(this, playerPrePos);
+            return true;
+        }
+        return false;
     }
 }
