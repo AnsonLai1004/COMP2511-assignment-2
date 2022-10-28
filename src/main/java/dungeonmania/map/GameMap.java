@@ -276,8 +276,4 @@ public class GameMap {
     public Position getPosition() {
         return getPlayer().getPosition();
     }
-    /* 
-    public List<Position> getPlayerCardinallyAdjacentPositions() {
-        return player.getPosition().getCardinallyAdjacentPositions();
-    }*/
 }

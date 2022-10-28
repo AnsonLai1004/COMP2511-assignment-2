@@ -51,7 +51,7 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
         Position nextPos;
         GameMap map = game.getMap();
         if (allied && isCardinallyAdjacent) {
-            // follow player 
+            // follow player
             nextPos = map.getPlayer().getPreviousPosition();
             map.moveTo(this, nextPos);
         } else {
@@ -77,7 +77,8 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
         return bribeAmount;
     }
 
-    // set isCardinallyAdjacent to true if the enemy became ally and is cardinallyAdjacent to player
+    // when ally is cardinally adjacent to player,
+    // set isCardinallyAdjacent to true and teleport ally to player previous position
     public boolean checkIsCardinallyAdjacent(GameMap map) {
         if (!allied) return false;
         List<Position> pos = getPosition().getCardinallyAdjacentPositions();
