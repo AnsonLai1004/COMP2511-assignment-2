@@ -114,6 +114,16 @@ public class EntityFactory {
         return new Shield(shieldDurability, shieldDefence);
     }
 
+    public Assassin buildAssassin(Position pos) {
+        double assassinHealth = config.optDouble("assassin_health", Assassin.DEFAULT_HEALTH);
+        double assassinAttack = config.optDouble("assassin_attack", Assassin.DEFAULT_ATTACK);
+        int assassinBribeAmount = config.optInt("bribe_amount", Assassin.DEFAULT_BRIBE_AMOUNT);
+        int assassinBribeRadius = config.optInt("bribe_radius", Assassin.DEFAULT_BRIBE_RADIUS);
+        double assassinBribeFailRate = config.optDouble("assassin_bribe_fail_rate", Assassin.DEFAULT_BRIBE_FAIL_RATE);
+        return new Assassin(pos, assassinHealth, assassinAttack,
+            assassinBribeAmount, assassinBribeRadius, assassinBribeFailRate);
+    }
+
     private Entity constructEntity(JSONObject jsonEntity, JSONObject config) {
         Position pos = new Position(jsonEntity.getInt("x"), jsonEntity.getInt("y"));
 
@@ -126,6 +136,8 @@ public class EntityFactory {
             return buildZombieToastSpawner(pos);
         case "mercenary":
             return buildMercenary(pos);
+        case "assassin":
+            return buildAssassin(pos);
         case "wall":
             return new Wall(pos);
         case "boulder":
