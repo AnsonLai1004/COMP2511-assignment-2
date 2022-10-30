@@ -118,10 +118,9 @@ public class AssassinTest {
         // bribe but fail
         res = assertDoesNotThrow(() -> dmc.interact(assId));
         assertEquals(0, TestUtils.getInventory(res, "treasure").size());
-       
         assertEquals(1, res.getBattles().size());
     }
-    
+
     private Position getAssassinPos(DungeonResponse res) {
         return TestUtils.getEntities(res, "assassin").get(0).getPosition();
     }
