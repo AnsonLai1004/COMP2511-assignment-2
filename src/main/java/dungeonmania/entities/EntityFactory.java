@@ -4,7 +4,6 @@ import dungeonmania.Game;
 import dungeonmania.entities.buildables.Bow;
 import dungeonmania.entities.buildables.Shield;
 import dungeonmania.entities.collectables.*;
-import dungeonmania.entities.collectables.Sword;
 import dungeonmania.entities.enemies.*;
 import dungeonmania.map.GameMap;
 import dungeonmania.entities.collectables.potions.InvincibilityPotion;
@@ -152,6 +151,8 @@ public class EntityFactory {
             return new Wood(pos);
         case "arrow":
             return new Arrow(pos);
+        case "sun_stone":
+            return new SunStone(pos);
         case "bomb":
             int bombRadius = config.optInt("bomb_radius", Bomb.DEFAULT_RADIUS);
             return new Bomb(pos, bombRadius);

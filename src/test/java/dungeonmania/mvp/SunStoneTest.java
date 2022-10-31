@@ -59,29 +59,29 @@ public class SunStoneTest {
         assertThrows(InvalidActionException.class, () ->
                 dmc.interact(mercId)
         );
-        assertEquals(1, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(0, TestUtils.getInventory(res, "treasure").size());
 
         // pick up second treasure
         res = dmc.tick(Direction.RIGHT);
-        assertEquals(2, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(1, TestUtils.getInventory(res, "treasure").size());
         assertEquals(new Position(6, 1), getMercPos(res));
 
         // attempt bribe
         assertThrows(InvalidActionException.class, () ->
                 dmc.interact(mercId)
         );
-        assertEquals(2, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(1, TestUtils.getInventory(res, "treasure").size());
 
         // pick up third treasure
         res = dmc.tick(Direction.RIGHT);
-        assertEquals(3, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(2, TestUtils.getInventory(res, "treasure").size());
         assertEquals(new Position(5, 1), getMercPos(res));
 
         // cannot bribe
         assertThrows(InvalidActionException.class, () ->
                 dmc.interact(mercId)
         );
-        assertEquals(3, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(2, TestUtils.getInventory(res, "treasure").size());
     }
 
     @Test
@@ -101,14 +101,16 @@ public class SunStoneTest {
 
         // collect treasure
         res = dmc.tick(Direction.RIGHT);
-        assertEquals(1, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(0, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
 
         // assert goal not met
         assertTrue(TestUtils.getGoals(res).contains(":treasure"));
 
         // collect treasure
         res = dmc.tick(Direction.RIGHT);
-        assertEquals(2, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(1, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
 
         // assert goal met
         assertEquals("", TestUtils.getGoals(res));

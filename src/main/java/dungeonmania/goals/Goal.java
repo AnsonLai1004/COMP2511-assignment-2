@@ -7,6 +7,7 @@ import dungeonmania.entities.Entity;
 import dungeonmania.entities.Exit;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
+import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.util.Position;
 
@@ -49,7 +50,8 @@ public class Goal {
             case "boulders":
                 return game.getEntities(Switch.class).stream().allMatch(s -> s.isActivated());
             case "treasure":
-                return game.getInitialTreasureCount() - game.getEntities(Treasure.class).size() >= target;
+                return game.getInitialTreasureCount() - game.getEntities(Treasure.class).size()
+                        - game.getEntities(SunStone.class).size() >= target;
             case "AND":
                 return goal1.achieved(game) && goal2.achieved(game);
             case "OR":
