@@ -54,7 +54,7 @@ public class Game {
         this.tickCount = 0;
         player = map.getPlayer();
         register(() -> player.onTick(tickCount), PLAYER_MOVEMENT, "potionQueue");
-        initialTreasureCount = map.getEntities(Treasure.class).size() 
+        initialTreasureCount = map.getEntities(Treasure.class).size()
                 + map.getEntities(SunStone.class).size();
     }
 
