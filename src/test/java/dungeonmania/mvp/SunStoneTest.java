@@ -34,7 +34,6 @@ public class SunStoneTest {
     @Test
     @DisplayName("Test sunstone is retained after being used")
     public void sunStoneIsRetained()  {
-        //TODO:
 
     }
 
@@ -119,7 +118,6 @@ public class SunStoneTest {
     @Test
     @DisplayName("Test sunstone can replace another material in building entities")
     public void sunStoneBuildEntities()  {
-        // TODO:
     }
     // can add switch door test later when swith door is implemented...
 
