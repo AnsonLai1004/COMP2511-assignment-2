@@ -52,6 +52,7 @@ public class Assassin extends Enemy implements Interactable, Bribeable {
         } else {
             allied = true;
         }
+        if (bribeFailRate == 0) allied = true;
     }
 
 

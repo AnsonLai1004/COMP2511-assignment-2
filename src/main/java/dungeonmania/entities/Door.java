@@ -3,6 +3,7 @@ package dungeonmania.entities;
 import dungeonmania.map.GameMap;
 
 import dungeonmania.entities.collectables.Key;
+import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.enemies.Spider;
 import dungeonmania.entities.inventory.Inventory;
 import dungeonmania.util.Position;
@@ -41,6 +42,7 @@ public class Door extends Entity {
 
     private boolean hasKey(Player player) {
         Inventory inventory = player.getInventory();
+        if (inventory.getFirst(SunStone.class) != null) return true;
         Key key = inventory.getFirst(Key.class);
 
         return (key != null && key.getnumber() == number);

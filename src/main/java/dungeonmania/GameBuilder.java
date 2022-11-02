@@ -79,7 +79,9 @@ public class GameBuilder {
         dungeon.getJSONArray("entities").forEach(e -> {
             JSONObject jsonEntity = (JSONObject) e;
             GraphNode newNode = GraphNodeFactory.createEntity(jsonEntity, game.getEntityFactory());
+            //System.out.print(newNode);
             Entity entity = newNode.getEntities().get(0);
+            //System.out.print(jsonEntity);
 
             if (newNode != null)
                 map.addNode(newNode);

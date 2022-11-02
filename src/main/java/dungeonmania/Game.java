@@ -10,6 +10,7 @@ import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.collectables.Bomb;
+import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.potions.Potion;
 import dungeonmania.entities.enemies.Enemy;
@@ -53,7 +54,8 @@ public class Game {
         this.tickCount = 0;
         player = map.getPlayer();
         register(() -> player.onTick(tickCount), PLAYER_MOVEMENT, "potionQueue");
-        initialTreasureCount = map.getEntities(Treasure.class).size();
+        initialTreasureCount = map.getEntities(Treasure.class).size()
+                + map.getEntities(SunStone.class).size();
     }
 
     public Game tick(Direction movementDirection) {

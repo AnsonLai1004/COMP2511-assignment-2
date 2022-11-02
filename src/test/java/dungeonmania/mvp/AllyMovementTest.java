@@ -19,7 +19,7 @@ public class AllyMovementTest {
         //                  P5/M7
 
         DungeonManiaController dmc = new DungeonManiaController();
-        DungeonResponse res = dmc.newGame("d_AllyTest_followPlayer", "c_AllyTest_followPlayer");
+        DungeonResponse res = dmc.newGame("d_allyTest_followPlayer", "c_allyTest_followPlayer");
         String mercId = TestUtils.getEntitiesStream(res, "mercenary").findFirst().get().getId();
 
         res = assertDoesNotThrow(() -> dmc.interact(mercId));
