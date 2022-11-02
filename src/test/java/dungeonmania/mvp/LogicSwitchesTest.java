@@ -18,15 +18,32 @@ public class LogicSwitchesTest {
         DungeonResponse res = dmc.newGame(
             "d_LogicSwitchesTest_lightBulbBasic", "c_LogicSwitchesTest_lightBulbBasic");
 
+        //assertTrue(boulderAt(res, 2, 1));
+
         res = dmc.tick(Direction.RIGHT);
         
-        
+        assertTrue(boulderAt(res, 3, 1));
+        //asserTrue(lightbulbIsActivated(res, , 0)
         Position pos = TestUtils.getEntities(res, "player").get(0).getPosition();
-        assertEquals(1, TestUtils.getInventory(res, "key").size());
 
         // walk through door and check key is gone
         res = dmc.tick(Direction.RIGHT);
         assertEquals(0, TestUtils.getInventory(res, "key").size());
         assertNotEquals(pos, TestUtils.getEntities(res, "player").get(0).getPosition());
     }
+
+    private boolean boulderAt(DungeonResponse res, int x, int y) {
+        Position pos = new Position(x, y);
+        return TestUtils.getEntitiesStream(res, "boulder").anyMatch(
+            it -> it.getPosition().equals(pos)
+        );
+    }
+
+    private boolean lightbulbIsActivated(DungeonResponse res, int x, int y) {
+        Position pos = new Position(x, y);
+        return TestUtils.getEntitiesStream(res, "light_bulb_on").anyMatch(
+            it -> it.getPosition().equals(pos)
+        );
+    }
+
 }

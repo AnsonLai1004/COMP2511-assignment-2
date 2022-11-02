@@ -178,7 +178,8 @@ public class TestUtils {
     public static DungeonResponse genericZombieSequence(DungeonManiaController controller, String configFile) {
         DungeonResponse response = controller.newGame("d_battleTest_basicZombie", configFile);
         List<EntityResponse> entities = response.getEntities();
-        assertEquals(1, countEntityOfType(entities, "player"));
+        assertEquals(1, countEntityOfType(entities, "player"
+        ));
         assertEquals(1, countEntityOfType(entities, "zombie_toast"));
 
         for (int i = 0; i < 3; i++) {
