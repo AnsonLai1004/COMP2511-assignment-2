@@ -6,6 +6,7 @@ import dungeonmania.entities.Bribeable;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
@@ -17,6 +18,8 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
 
     private int bribeAmount = Mercenary.DEFAULT_BRIBE_AMOUNT;
     private int bribeRadius = Mercenary.DEFAULT_BRIBE_RADIUS;
+    private int mcduration = 0;
+    private boolean ismc = false;
     private boolean allied = false;
     private Bribe bribe = new Bribe();
 
@@ -38,6 +41,12 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
 
     @Override
     public void interact(Player player, Game game) {
+        if (player.getEntities(Sceptre.class).size() >= 1) {
+            allied = true;
+            mcduration = player.getEntities(Sceptre.class).get(0).getmcDuration();
+            ismc = true;
+            return;
+        }
         allied = true;
         bribe.bribe(player, this);
     }
@@ -61,4 +70,25 @@ public class Mercenary extends Enemy implements Interactable, Bribeable {
     public int getBribeAmount() {
         return bribeAmount;
     }
+
+    public void setMcduration(int mcduration) {
+        this.mcduration = mcduration;
+    }
+
+    public int getMcduration() {
+        return mcduration;
+    }
+
+    public boolean isIsmc() {
+        return ismc;
+    }
+
+    public void setIsmc(boolean ismc) {
+        this.ismc = ismc;
+    }
+
+    public void setAllied(boolean allied) {
+        this.allied = allied;
+    }
+
 }

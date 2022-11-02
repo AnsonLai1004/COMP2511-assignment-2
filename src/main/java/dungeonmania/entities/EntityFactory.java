@@ -1,7 +1,9 @@
 package dungeonmania.entities;
 
 import dungeonmania.Game;
+import dungeonmania.entities.buildables.Armour;
 import dungeonmania.entities.buildables.Bow;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.buildables.Shield;
 import dungeonmania.entities.collectables.*;
 import dungeonmania.entities.enemies.*;
@@ -105,6 +107,17 @@ public class EntityFactory {
     public Bow buildBow() {
         int bowDurability = config.optInt("bow_durability");
         return new Bow(bowDurability);
+    }
+
+    public Armour buildArmour() {
+        int armourAttack = config.optInt("midnight_armour_attack");
+        int armourDefence = config.optInt("midnight_armour_defence");
+        return new Armour(armourAttack, armourDefence);
+    }
+
+    public Sceptre buildSceptre() {
+        int mcDuration = config.optInt("mind_control_duration");
+        return new Sceptre(mcDuration);
     }
 
     public Shield buildShield() {

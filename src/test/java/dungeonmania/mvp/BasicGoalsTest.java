@@ -125,4 +125,25 @@ public class BasicGoalsTest {
         // assert goal met
         assertEquals("", TestUtils.getGoals(res));
     }
+
+    // @Test
+    // @Tag("13-5")
+    // @DisplayName("Test achieving a basic enemy goal")
+    // public void enemy()  {
+    //     DungeonManiaController dmc;
+    //     dmc = new DungeonManiaController();
+    //     DungeonResponse res = dmc.newGame("d_basicGoalsTest_enemy", "c_basicGoalsTest_enemy");
+
+    //     // move player to right
+    //     res = dmc.tick(Direction.RIGHT);
+
+    //     // assert goal not met
+    //     assertTrue(TestUtils.getGoals(res).contains(":enemy"));
+
+    //     // move boulder onto switch
+    //     res = dmc.tick(Direction.RIGHT);
+
+    //     // assert goal met
+    //     assertEquals("", TestUtils.getGoals(res));
+    // }
 }
