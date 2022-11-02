@@ -17,7 +17,7 @@ public class AllyMovementTest {
         // P1       P2      P3/P7    M5     M4      M3      M2      M1      .      Wall
         //               P4/P6/M8    M6     Wall    Wall   Wall    Wall    Wall    Wall
         //                  P5/M7
-        //
+        
         DungeonManiaController dmc = new DungeonManiaController();
         DungeonResponse res = dmc.newGame("d_allyTest_followPlayer", "c_allyTest_followPlayer");
         String mercId = TestUtils.getEntitiesStream(res, "mercenary").findFirst().get().getId();
