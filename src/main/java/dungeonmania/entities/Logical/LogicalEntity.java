@@ -37,6 +37,4 @@ public abstract class LogicalEntity extends Entity {
     public boolean isActivated() {
         return activated;
     }
-
-    
 }

@@ -9,7 +9,7 @@ public class SwitchDoor extends LogicalEntity {
 
     public SwitchDoor(Position position, String logic) {
         super(position, logic);
-    } 
+    }
 
     @Override
     public boolean canMoveOnto(GameMap map, Entity entity) {

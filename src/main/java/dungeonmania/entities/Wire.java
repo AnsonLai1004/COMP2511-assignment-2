@@ -33,6 +33,4 @@ public class Wire extends Entity {
             }
         }
     }
-    
-
 }

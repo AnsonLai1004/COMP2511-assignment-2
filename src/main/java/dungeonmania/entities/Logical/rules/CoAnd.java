@@ -10,7 +10,7 @@ import dungeonmania.util.Position;
 
 public class CoAnd implements Logic {
     private int numActivated = 0;
-    private int numConductor = 0; 
+    private int numConductor = 0;
     private int prevActivated = 0;
 
     @Override
@@ -20,13 +20,15 @@ public class CoAnd implements Logic {
         pos.stream().forEach(node -> {
             map.getEntities(node).forEach(e -> {
                 if (e instanceof Switch) {
-                    if(((Switch) e).isActivated()) numActivated++;
+                    if (((Switch) e).isActivated()) numActivated++;
                     numConductor++;
                 }
+
                 if (e instanceof Wire) {
-                    if(((Wire) e).isActivated()) numActivated++;
+                    if (((Wire) e).isActivated()) numActivated++;
                     numConductor++;
                 }
+
             });
         });
         if (numActivated >= 2 && numConductor == numActivated - prevActivated) {

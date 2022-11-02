@@ -17,18 +17,17 @@ public class Xor implements Logic {
         pos.stream().forEach(node -> {
             map.getEntities(node).forEach(e -> {
                 if (e instanceof Switch) {
-                    if(((Switch) e).isActivated()) numActivated++;
+                    if (((Switch) e).isActivated()) numActivated++;
                 }
+
                 if (e instanceof Wire) {
-                    if(((Wire) e).isActivated()) numActivated++;
+                    if (((Wire) e).isActivated()) numActivated++;
                 }
             });
         });
         if (numActivated == 1) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
-    
 }

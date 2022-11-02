@@ -25,6 +25,5 @@ public class Or implements Logic {
         }
         return false;
     }
-    
 }
 

@@ -7,6 +7,5 @@ public class LightBulb extends LogicalEntity {
     public LightBulb(Position position, String logic) {
         super(position, logic);
     }
-    
 }
 
