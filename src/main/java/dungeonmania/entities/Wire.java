@@ -26,7 +26,7 @@ public class Wire extends Entity {
             List<Position> positions = getPosition().getCardinallyAdjacentPositions();
             for (Position pos : positions) {
                 map.getEntities(pos).forEach(e -> {
-                    if (e instanceof Wire) {
+                    if (e instanceof Wire && !((Wire) e).isActivated()) {
                         ((Wire) e).setActivated(map, true);
                     }
                 });

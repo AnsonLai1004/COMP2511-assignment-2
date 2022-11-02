@@ -40,6 +40,15 @@ public class Switch extends Entity {
         if (entity instanceof Boulder) {
             activated = true;
             bombs.stream().forEach(b -> b.notify(map));
+            // activate nearby wires
+            List<Position> positions = getPosition().getCardinallyAdjacentPositions();
+            for (Position pos : positions) {
+                map.getEntities(pos).forEach(e -> {
+                    if (e instanceof Wire) {
+                        ((Wire) e).setActivated(map, true);
+                    }
+                });
+            }
         }
     }
 
