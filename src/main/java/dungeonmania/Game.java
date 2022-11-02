@@ -9,6 +9,7 @@ import dungeonmania.entities.Entity;
 import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
+import dungeonmania.entities.Logical.LogicalEntity;
 import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.potions.Potion;
@@ -60,6 +61,10 @@ public class Game {
         registerOnce(
             () -> player.move(this.getMap(), movementDirection), PLAYER_MOVEMENT, "playerMoves");
         tick();
+        // List<LogicalEntity> le = getEntities(LogicalEntity.class);
+        // le.forEach(e -> {
+        //     e.activate(map);
+        // });
         return this;
     }
 

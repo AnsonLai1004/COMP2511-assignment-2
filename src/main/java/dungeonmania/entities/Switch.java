@@ -10,7 +10,6 @@ import dungeonmania.util.Position;
 public class Switch extends Entity {
     private boolean activated;
     private List<Bomb> bombs = new ArrayList<>();
-
     public Switch(Position position) {
         super(position.asLayer(Entity.ITEM_LAYER));
     }
@@ -25,11 +24,11 @@ public class Switch extends Entity {
             bombs.stream().forEach(b -> b.notify(map));
         }
     }
-
+    
     public void unsubscribe(Bomb b) {
         bombs.remove(b);
     }
-
+    
     @Override
     public boolean canMoveOnto(GameMap map, Entity entity) {
         return true;
@@ -40,6 +39,15 @@ public class Switch extends Entity {
         if (entity instanceof Boulder) {
             activated = true;
             bombs.stream().forEach(b -> b.notify(map));
+            // activate nearby wires
+            List<Position> positions = getPosition().getCardinallyAdjacentPositions();
+            for (Position pos : positions) {
+                map.getEntities(pos).forEach(e -> {
+                    if (e instanceof Wire) {
+                        ((Wire) e).setActivated(map, true);
+                    }
+                });
+            }
         }
     }
 
