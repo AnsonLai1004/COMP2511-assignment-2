@@ -9,11 +9,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.JsonArray;
-
+import dungeonmania.entities.Entity;
+import dungeonmania.entities.EntityFactory;
+import dungeonmania.entities.Player;
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.goals.Goal;
+import dungeonmania.goals.GoalFactory;
+import dungeonmania.map.GameMap;
+import dungeonmania.map.GraphNode;
+import dungeonmania.map.GraphNodeFactory;
 import dungeonmania.response.models.DungeonResponse;
 import dungeonmania.response.models.EntityResponse;
+import dungeonmania.response.models.ItemResponse;
 import dungeonmania.response.models.ResponseBuilder;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
@@ -111,7 +118,13 @@ public class DungeonManiaController {
     public DungeonResponse saveGame(String name) throws IllegalArgumentException {
         DungeonResponse dres = ResponseBuilder.getDungeonResponse(game);
         JSONObject jsonObject = new JSONObject();
-        // entities and their position to JSON
+        // config
+        jsonObject.put("config", game.getEntityFactory().getConfig());
+        // dungeonId
+        jsonObject.put("dungeonId", dres.getDungeonId());
+        // dungeonName
+        jsonObject.put("dungeonName", dres.getDungeonName());
+        // entities and their position
         JSONArray entitiesArr = new JSONArray();
         List<EntityResponse> entities = dres.getEntities();
         for (EntityResponse entity : entities) {
@@ -122,14 +135,33 @@ public class DungeonManiaController {
             entitiesArr.put(e);
         }
         jsonObject.put("entities", entitiesArr);
-        
+        // inventory
+        JSONArray invArr = new JSONArray();
+        List<ItemResponse> invs = dres.getInventory();
+        for (ItemResponse inv : invs) {
+            JSONObject i = new JSONObject();
+            i.put("id", inv.getId());
+            i.put("type", inv.getType());
+            invArr.put(i);
+        }
+        jsonObject.put("inventory", invArr);
+        // battles
+
+        // buildables
+        // JSONArray buildablesArr = new JSONArray();
+        // List<String> builds = dres.getBuildables();
+        // for (String b : builds) {
+
+        // }
+        // goals 
+        jsonObject.put("goals", dres.getGoals());
+
         FileWriter file;
         try {
             file = new FileWriter("src\\main\\java\\dungeonmania\\Saved\\" + name + ".json");
             file.write(jsonObject.toString());
             file.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return dres;
@@ -139,7 +171,37 @@ public class DungeonManiaController {
      * /game/load
      */
     public DungeonResponse loadGame(String name) throws IllegalArgumentException {
-        return null;
+        JSONObject obj;
+        String file = "src\\main\\java\\dungeonmania\\Saved\\" + name + ".json";
+        try {
+            Game game = new Game(obj.getString("dungeonName"));
+            EntityFactory factory = new EntityFactory(obj.getJSONObject("config"));
+            game.setEntityFactory(factory);
+            // build map
+            GameMap map = new GameMap();
+            map.setGame(game);
+            obj.getJSONArray("entities").forEach(e -> {
+                JSONObject jsonEntity = (JSONObject) e;
+                GraphNode newNode = GraphNodeFactory.createEntity(jsonEntity, game.getEntityFactory());
+                Entity entity = newNode.getEntities().get(0);
+    
+                if (newNode != null)
+                    map.addNode(newNode);
+    
+                if (entity instanceof Player)
+                    map.setPlayer((Player) entity);
+            });
+            game.setMap(map);
+            // build goal
+            if (!obj.isNull("goal-condition")) {
+                Goal goal = GoalFactory.createGoal(obj.getJSONObject("goal-condition"), obj.getJSONObject("config"));
+                game.setGoals(goal);
+            }
+            game.init();        
+        } catch (IOException e) {
+            obj = null;
+        }
+        return ResponseBuilder.getDungeonResponse(game);
     }
 
     /**

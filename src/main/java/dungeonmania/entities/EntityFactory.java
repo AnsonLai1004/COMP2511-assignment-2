@@ -180,4 +180,9 @@ public class EntityFactory {
             return null;
         }
     }
+
+    public JSONObject getConfig() {
+        return config;
+    }
+    
 }
