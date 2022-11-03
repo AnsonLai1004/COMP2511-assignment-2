@@ -2,6 +2,8 @@ package dungeonmania.entities;
 
 import dungeonmania.Game;
 import dungeonmania.entities.buildables.Armour;
+import dungeonmania.entities.Logical.LightBulb;
+import dungeonmania.entities.Logical.SwitchDoor;
 import dungeonmania.entities.buildables.Bow;
 import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.buildables.Shield;
@@ -166,6 +168,12 @@ public class EntityFactory {
             return new Arrow(pos);
         case "sun_stone":
             return new SunStone(pos);
+        case "switch_door":
+            return new SwitchDoor(pos, jsonEntity.getString("logic"));
+        case "light_bulb_off":
+            return new LightBulb(pos, jsonEntity.getString("logic"));
+        case "wire":
+            return new Wire(pos);
         case "bomb":
             int bombRadius = config.optInt("bomb_radius", Bomb.DEFAULT_RADIUS);
             return new Bomb(pos, bombRadius);
