@@ -14,6 +14,7 @@ public class And implements Logic {
 
     @Override
     public boolean achieved(GameMap map, Entity entity) {
+        boolean res = false;
         List<Position> pos = entity.getPosition().getCardinallyAdjacentPositions();
         pos.stream().forEach(node -> {
             map.getEntities(node).forEach(e -> {
@@ -30,9 +31,11 @@ public class And implements Logic {
             });
         });
         if (numActivated >= 2 && numConductor == numActivated) {
-            return true;
+            res = true;
         }
-        return false;
+        numActivated = 0;
+        numConductor = 0;
+        return res;
     }
 
 }

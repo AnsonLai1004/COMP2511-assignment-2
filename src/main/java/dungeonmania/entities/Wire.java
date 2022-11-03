@@ -22,15 +22,14 @@ public class Wire extends Entity {
 
     public void setActivated(GameMap map, boolean activated) {
         this.activated = activated;
-        if (activated) {
-            List<Position> positions = getPosition().getCardinallyAdjacentPositions();
-            for (Position pos : positions) {
-                map.getEntities(pos).forEach(e -> {
-                    if (e instanceof Wire && !((Wire) e).isActivated()) {
-                        ((Wire) e).setActivated(map, true);
-                    }
-                });
-            }
+        List<Position> positions = getPosition().getCardinallyAdjacentPositions();
+        for (Position pos : positions) {
+            map.getEntities(pos).forEach(e -> {
+                if (e instanceof Wire && ((Wire) e).isActivated() != activated) {
+                    ((Wire) e).setActivated(map, activated);
+                }
+            });
         }
+
     }
 }

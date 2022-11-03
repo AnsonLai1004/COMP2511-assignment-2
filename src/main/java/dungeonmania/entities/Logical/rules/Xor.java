@@ -13,6 +13,7 @@ public class Xor implements Logic {
 
     @Override
     public boolean achieved(GameMap map, Entity entity) {
+        boolean res = false;
         List<Position> pos = entity.getPosition().getCardinallyAdjacentPositions();
         pos.stream().forEach(node -> {
             map.getEntities(node).forEach(e -> {
@@ -26,8 +27,9 @@ public class Xor implements Logic {
             });
         });
         if (numActivated == 1) {
-            return true;
+            res = true;
         }
-        return false;
+        numActivated = 0;
+        return res;
     }
 }

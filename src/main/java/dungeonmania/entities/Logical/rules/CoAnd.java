@@ -37,6 +37,8 @@ public class CoAnd implements Logic {
             res = false;
         }
         prevActivated = numActivated;
+        numActivated = 0;
+        numConductor = 0;
         return res;
     }
 }

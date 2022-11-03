@@ -67,7 +67,7 @@ public class LogicSwitchesTest {
         assertTrue(lightbulbIsActivated(res, 6, 1));
     }
     @Test
-    @DisplayName("Success case for And")
+    @DisplayName("Success case for And + test logical entitiy is not conductor")
     public void AndLogicSuccessCase() {
         DungeonManiaController dmc = new DungeonManiaController();
         DungeonResponse res = dmc.newGame(
@@ -78,7 +78,12 @@ public class LogicSwitchesTest {
 
         res = dmc.tick(Direction.RIGHT);        
         assertTrue(boulderAt(res, 3, 1));
-        assertTrue(lightbulbIsActivated(res, 6, 1));
+        assertTrue(lightbulbIsActivated(res, 4, 1));
+
+        res = dmc.tick(Direction.DOWN); 
+        res = dmc.tick(Direction.RIGHT);        
+        res = dmc.tick(Direction.RIGHT);   
+        assertEquals(new Position(3, 2), TestUtils.getEntities(res, "player").get(0).getPosition());
     }
     @Test
     @DisplayName("Fail case for And")
@@ -124,7 +129,7 @@ public class LogicSwitchesTest {
         assertTrue(lightbulbIsActivated(res, 6, 1));
     }
     @Test
-    @DisplayName("Fail case for Xor")
+    @DisplayName("Test Xor fail at first then pass")
     public void XorLogicFailCase() {
         DungeonManiaController dmc = new DungeonManiaController();
         DungeonResponse res = dmc.newGame(
@@ -136,6 +141,16 @@ public class LogicSwitchesTest {
         res = dmc.tick(Direction.RIGHT);        
         assertTrue(boulderAt(res, 3, 1));
         assertTrue(!lightbulbIsActivated(res, 6, 1));
+
+        res = dmc.tick(Direction.DOWN);       
+        res = dmc.tick(Direction.RIGHT);
+        res = dmc.tick(Direction.UP);  
+        assertTrue(boulderAt(res, 3, 0));
+        res = dmc.tick(Direction.DOWN);       
+        res = dmc.tick(Direction.RIGHT);       
+        res = dmc.tick(Direction.RIGHT);        
+        assertEquals(new Position(5, 2), TestUtils.getEntities(res, "player").get(0).getPosition());
+        assertTrue(lightbulbIsActivated(res, 6, 1));
     }
     @Test
     @DisplayName("Success case for Co_And")
@@ -181,7 +196,19 @@ public class LogicSwitchesTest {
 
         assertTrue(!lightbulbIsActivated(res, 6, 1));
     }
+    @Test
+    @DisplayName("Wire can move onto")
+    public void WireCanMoveOnto() {
+        DungeonManiaController dmc = new DungeonManiaController();
+        DungeonResponse res = dmc.newGame(
+            "d_LogicSwitchesTest_wireMoveOnto",
+            "c_LogicSwitchesTest_lightBulbBasic");
 
+        assertEquals(new Position(2, 1), TestUtils.getEntities(res, "player").get(0).getPosition());
+        res = dmc.tick(Direction.RIGHT);        
+        assertEquals(new Position(3, 1), TestUtils.getEntities(res, "player").get(0).getPosition());
+        
+    }
     private boolean boulderAt(DungeonResponse res, int x, int y) {
         Position pos = new Position(x, y);
         return TestUtils.getEntitiesStream(res, "boulder").anyMatch(
