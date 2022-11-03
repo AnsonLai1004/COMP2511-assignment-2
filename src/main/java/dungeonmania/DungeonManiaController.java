@@ -1,16 +1,23 @@
 package dungeonmania;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonArray;
+
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
 import dungeonmania.response.models.ResponseBuilder;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
+import dungeonmania.util.Position;
 
 public class DungeonManiaController {
     private Game game = null;
@@ -102,15 +109,30 @@ public class DungeonManiaController {
      * /game/save
      */
     public DungeonResponse saveGame(String name) throws IllegalArgumentException {
-        JSONObject dFile = new JSONObject();
-// // String to JSONObject
-// String s;
-// JSONObject o = new JSONObject(s);
-
-// // JSONObject to String
-// JSONObject o;
-// String s = o.toString();
-        return null;
+        DungeonResponse dres = ResponseBuilder.getDungeonResponse(game);
+        JSONObject jsonObject = new JSONObject();
+        // entities and their position to JSON
+        JSONArray entitiesArr = new JSONArray();
+        List<EntityResponse> entities = dres.getEntities();
+        for (EntityResponse entity : entities) {
+            JSONObject e = new JSONObject();
+            e.put("type", entity.getType());
+            e.put("x", entity.getPosition().getX());
+            e.put("y", entity.getPosition().getY());
+            entitiesArr.put(e);
+        }
+        jsonObject.put("entities", entitiesArr);
+        
+        FileWriter file;
+        try {
+            file = new FileWriter("src\\main\\java\\dungeonmania\\Saved\\" + name + ".json");
+            file.write(jsonObject.toString());
+            file.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return dres;
     }
 
     /**

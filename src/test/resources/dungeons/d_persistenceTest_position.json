@@ -21,5 +21,7 @@
         "type": "exit"
       }
     ],
-    "goal-condition": "{\"goal\":\"exit\"}"
+    "goal-condition": {
+      "goal": "exit"
+    }
   }
