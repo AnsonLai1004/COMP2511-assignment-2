@@ -101,6 +101,7 @@ public class Inventory {
             if (remove) {
                 items.remove(sword.get(0));
             }
+            return factory.buildArmour();
         }
         return null;
     }
