@@ -139,7 +139,7 @@ public class BasicGoalsTest {
     //     List<EntityResponse> entities = res.getEntities();
     //     assertTrue(TestUtils.countEntityOfType(entities, "spider") == 1);
     //     assertTrue(TestUtils.countEntityOfType(entities, "zombie") == 1);
-  
+
     //     // move player to right
     //     res = dmc.tick(Direction.RIGHT);
 
