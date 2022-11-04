@@ -2,12 +2,15 @@ package dungeonmania.mvp;
 
 import dungeonmania.DungeonManiaController;
 import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
 
 public class BasicGoalsTest {
 
@@ -134,16 +137,28 @@ public class BasicGoalsTest {
     //     dmc = new DungeonManiaController();
     //     DungeonResponse res = dmc.newGame("d_basicGoalsTest_enemy", "c_basicGoalsTest_enemy");
 
+    //     // Start of game
+    //     assertTrue(TestUtils.getGoals(res).contains(":enemy"));
+    //     List<EntityResponse> entities = res.getEntities();
+    //     assertTrue(TestUtils.countEntityOfType(entities, "spider") == 1);
+    //     assertTrue(TestUtils.countEntityOfType(entities, "zombie") == 1);
+        
     //     // move player to right
     //     res = dmc.tick(Direction.RIGHT);
 
     //     // assert goal not met
     //     assertTrue(TestUtils.getGoals(res).contains(":enemy"));
+    //     entities = res.getEntities();
+    //     assertTrue(TestUtils.countEntityOfType(entities, "spider") == 1);
+    //     assertTrue(TestUtils.countEntityOfType(entities, "zombie") == 0);
 
-    //     // move boulder onto switch
-    //     res = dmc.tick(Direction.RIGHT);
+    //     // move player to left
+    //     res = dmc.tick(Direction.LEFT);
 
     //     // assert goal met
     //     assertEquals("", TestUtils.getGoals(res));
+    //     entities = res.getEntities();
+    //     assertTrue(TestUtils.countEntityOfType(entities, "spider") == 0);
+    //     assertTrue(TestUtils.countEntityOfType(entities, "zombie") == 0);
     // }
 }

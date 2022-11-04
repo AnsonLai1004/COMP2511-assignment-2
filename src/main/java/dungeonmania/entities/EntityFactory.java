@@ -154,6 +154,8 @@ public class EntityFactory {
             return buildAssassin(pos);
         case "wall":
             return new Wall(pos);
+        case "swamp_tile":
+            return new SwampTile(pos, 10);
         case "boulder":
             return new Boulder(pos);
         case "switch":

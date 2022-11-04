@@ -17,6 +17,7 @@ public class GraphNodeFactory {
         case "mercenary":
         case "assassin":
         case "wall":
+        case "swamp_tile":
         case "boulder":
         case "switch":
         case "exit":

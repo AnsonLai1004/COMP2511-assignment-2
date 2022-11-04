@@ -47,6 +47,7 @@
         "enemies": "images/tileset/items/sword_silver.png",
         "sun_stone": "images/tileset/entities/sun_stone.png",
         "sceptre": "images/tileset/entities/sceptre.png",
-        "midnight_armour": "images/tileset/entities/midnight_armour.png"
+        "midnight_armour": "images/tileset/entities/midnight_armour.png",
+        "swamp_tile": "images/tileset/entities/swamp_tile.png"
     }
 }

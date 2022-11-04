@@ -1,5 +1,6 @@
 package dungeonmania.entities;
 
+import dungeonmania.Game;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -89,5 +90,9 @@ public abstract class Entity {
 
     public Direction getFacing() {
         return this.facing;
+    }
+
+    public boolean canMoveAway(GameMap map, Entity entity) {
+        return false;
     }
 }
