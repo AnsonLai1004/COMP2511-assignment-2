@@ -189,4 +189,72 @@ public class BuildablesTest {
         buildables.remove("shield");
         assertEquals(buildables, res.getBuildables());
     }
+
+    @Test
+    @Tag("5-7")
+    @DisplayName("Test building a sceptre")
+    public void buildSceptre() {
+        DungeonManiaController dmc;
+        dmc = new DungeonManiaController();
+        DungeonResponse res = dmc.newGame("sceptre", "simple");
+
+        assertEquals(0, TestUtils.getInventory(res, "wood").size());
+        assertEquals(0, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(0, TestUtils.getInventory(res, "sun_stone").size());
+
+        // Pick up Wood
+        res = dmc.tick(Direction.RIGHT);
+        assertEquals(1, TestUtils.getInventory(res, "wood").size());
+
+        // Pick up Treasure
+        res = dmc.tick(Direction.RIGHT);
+        assertEquals(1, TestUtils.getInventory(res, "treasure").size());
+
+        // Pick up SunStone
+        res = dmc.tick(Direction.RIGHT);
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
+
+        // Build Sceptre
+        assertEquals(0, TestUtils.getInventory(res, "sceptre").size());
+        res = assertDoesNotThrow(() -> dmc.build("sceptre"));
+        assertEquals(1, TestUtils.getInventory(res, "sceptre").size());
+
+        // Materials used in construction disappear from inventory except for SunStone
+        assertEquals(0, TestUtils.getInventory(res, "wood").size());
+        assertEquals(0, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
+    }
+
+    @Test
+    @Tag("5-7")
+    @DisplayName("Test building a midnight armour")
+    public void buildMidnightArmour() {
+        DungeonManiaController dmc;
+        dmc = new DungeonManiaController();
+        DungeonResponse res = dmc.newGame("midnight_armour", "simple");
+
+        assertEquals(0, TestUtils.getInventory(res, "sword").size());
+        assertEquals(0, TestUtils.getInventory(res, "treasure").size());
+        assertEquals(0, TestUtils.getInventory(res, "sun_stone").size());
+
+        // Pick up Sword
+        res = dmc.tick(Direction.RIGHT);
+        assertEquals(1, TestUtils.getInventory(res, "sword").size());
+
+        // Pick up Treasure (uneeded)
+        res = dmc.tick(Direction.RIGHT);
+
+        // Pick up SunStone
+        res = dmc.tick(Direction.RIGHT);
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
+
+        // Build Midnight Armour
+        assertEquals(0, TestUtils.getInventory(res, "midnight_armour").size());
+        res = assertDoesNotThrow(() -> dmc.build("midnight_armour"));
+        assertEquals(1, TestUtils.getInventory(res, "midnight_armour").size());
+
+        // Materials used in construction disappear from inventory except for SunStone
+        assertEquals(0, TestUtils.getInventory(res, "sword").size());
+        assertEquals(1, TestUtils.getInventory(res, "sun_stone").size());
+    }
 }

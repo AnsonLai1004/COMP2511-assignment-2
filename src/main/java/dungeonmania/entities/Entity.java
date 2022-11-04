@@ -90,4 +90,8 @@ public abstract class Entity {
     public Direction getFacing() {
         return this.facing;
     }
+
+    public boolean canMoveAway(GameMap map, Entity entity) {
+        return false;
+    }
 }

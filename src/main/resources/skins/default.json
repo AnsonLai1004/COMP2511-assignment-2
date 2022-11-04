@@ -15,6 +15,7 @@
         "text_color": "white"
     },
     "entities": {
+        "assassin":"images/tileset/entities/assassin.png",
         "boulder": "images/tileset/entities/boulder_00.png",
         "bow": "images/tileset/items/bow_0.png",
         "player": "images/tileset/entities/entity.png",
@@ -43,6 +44,10 @@
         "zombie_toast_spawner": "images/tileset/entities/zombie_spawner.png",
         "zombie_toast": "images/tileset/entities/zombie.png",
         "boulders": "images/tileset/entities/boulder_00.png",
-        "enemies": "images/tileset/items/sword_silver.png"
+        "enemies": "images/tileset/items/sword_silver.png",
+        "sun_stone": "images/tileset/entities/sun_stone.png",
+        "sceptre": "images/tileset/entities/sceptre.png",
+        "midnight_armour": "images/tileset/entities/midnight_armour.png",
+        "swamp_tile": "images/tileset/entities/swamp_tile.png"
     }
 }

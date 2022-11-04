@@ -21,5 +21,6 @@
   "treasure_goal": 1,
   "zombie_attack": 1,
   "zombie_health": 5,
-  "zombie_spawn_interval": 10
+  "zombie_spawn_interval": 10,
+  "mind_control_duration": 5
 }

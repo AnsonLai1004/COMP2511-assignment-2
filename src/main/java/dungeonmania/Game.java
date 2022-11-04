@@ -3,6 +3,7 @@ package dungeonmania;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import dungeonmania.battles.BattleFacade;
 import dungeonmania.entities.Entity;
@@ -15,6 +16,8 @@ import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.potions.Potion;
 import dungeonmania.entities.enemies.Enemy;
+import dungeonmania.entities.enemies.Mercenary;
+import dungeonmania.entities.enemies.ZombieToast;
 import dungeonmania.entities.enemies.ZombieToastSpawner;
 import dungeonmania.entities.inventory.Inventory;
 import dungeonmania.exceptions.InvalidActionException;
@@ -40,6 +43,7 @@ public class Game {
     public static final int AI_MOVEMENT_CALLBACK = 3;
 
     private int tickCount = 0;
+    private int defeated = 0;
     private PriorityQueue<ComparableCallback> sub = new PriorityQueue<>();
     private PriorityQueue<ComparableCallback> addingSub = new PriorityQueue<>();
 
@@ -63,6 +67,15 @@ public class Game {
         registerOnce(
             () -> player.move(this.getMap(), movementDirection), PLAYER_MOVEMENT, "playerMoves");
         tick();
+        List<Mercenary> mercenary = map.getEntities(Mercenary.class).stream()
+            .filter(i -> i.isAllied()).collect(Collectors.toList());
+        for (Mercenary i: mercenary) {
+            i.setMcduration(i.getMcduration() - 1);
+            if (i.getMcduration() == 0) {
+                i.setIsmc(false);
+                i.setAllied(false);
+            }
+        }
         List<LogicalEntity> le = getEntities(LogicalEntity.class);
         le.forEach(e -> {
             e.activate(map);
@@ -99,11 +112,15 @@ public class Game {
         }
         if (enemy.getHealth() <= 0) {
             map.destroyEntity(enemy);
+            defeated++;
         }
     }
 
     public Game build(String buildable) throws InvalidActionException {
         List<String> buildables = player.getBuildables();
+        if (map.getEntities(ZombieToast.class).size() >= 1) {
+            buildables.remove("midnight_armour");
+        }
         if (!buildables.contains(buildable)) {
             throw new InvalidActionException(String.format("%s cannot be built", buildable));
         }
@@ -267,4 +284,13 @@ public class Game {
     public List<BattleResponse> getBattleResponses() {
         return getBattleFacade().getBattleResponses();
     }
+
+    public int getEnemiesDefeated() {
+        return defeated;
+    }
+
+    // public void setTick(int tickCount) {
+    //     this.tickCount = tickCount;
+    // }
+
 }

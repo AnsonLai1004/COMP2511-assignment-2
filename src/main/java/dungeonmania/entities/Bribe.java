@@ -2,6 +2,7 @@ package dungeonmania.entities;
 import java.util.List;
 
 import dungeonmania.Game;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
@@ -16,6 +17,10 @@ public class Bribe {
      * @return
      */
     public boolean canBeBribed(Player player, Bribeable entity) {
+        Sceptre sceptre = player.getInventory().getFirst(Sceptre.class);
+        if (sceptre != null) {
+            return true;
+        }
         return entity.getBribeRadius() >= 0 && player.countEntityOfType(Treasure.class) >= entity.getBribeAmount();
     }
 

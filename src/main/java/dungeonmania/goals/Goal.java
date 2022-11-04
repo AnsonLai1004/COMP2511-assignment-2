@@ -9,6 +9,7 @@ import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
 import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
+import dungeonmania.entities.enemies.ZombieToastSpawner;
 import dungeonmania.util.Position;
 
 public class Goal {
@@ -52,6 +53,8 @@ public class Goal {
             case "treasure":
                 return game.getInitialTreasureCount() - game.getEntities(Treasure.class).size()
                         - game.getEntities(SunStone.class).size() >= target;
+            case "enemy":
+                return game.getEnemiesDefeated() >= target && game.getEntities(ZombieToastSpawner.class).size() == 0;
             case "AND":
                 return goal1.achieved(game) && goal2.achieved(game);
             case "OR":
@@ -71,6 +74,8 @@ public class Goal {
                 return ":boulders";
             case "treasure":
                 return ":treasure";
+            case "enemy":
+                return ":enemy";
             case "AND":
                 return "(" + goal1.toString(game) + " AND " + goal2.toString(game) + ")";
             case "OR":

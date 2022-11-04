@@ -17,6 +17,7 @@ public class GraphNodeFactory {
         case "mercenary":
         case "assassin":
         case "wall":
+        case "swamp_tile":
         case "boulder":
         case "switch":
         case "exit":
@@ -34,6 +35,7 @@ public class GraphNodeFactory {
         case "switch_door":
         case "wire":
         case "light_bulb_off":
+        case "midnight_armour":
         case "key":
             return new GraphNode(factory.createEntity(jsonEntity));
         default:
