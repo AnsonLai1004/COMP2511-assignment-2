@@ -1,7 +1,10 @@
 package dungeonmania;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.Player;
@@ -24,7 +29,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.response.models.ResponseBuilder;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
-import dungeonmania.util.Position;
+
 
 public class DungeonManiaController {
     private Game game = null;
@@ -154,7 +159,9 @@ public class DungeonManiaController {
 
         // }
         // goals 
-        jsonObject.put("goals", dres.getGoals());
+        JSONObject goal = new JSONObject();
+        goal.put("goal", dres.getGoals());
+        jsonObject.put("goal-condition", goal);
 
         FileWriter file;
         try {
@@ -173,34 +180,38 @@ public class DungeonManiaController {
     public DungeonResponse loadGame(String name) throws IllegalArgumentException {
         JSONObject obj;
         String file = "src\\main\\java\\dungeonmania\\Saved\\" + name + ".json";
+        Reader input = null;
         try {
-            Game game = new Game(obj.getString("dungeonName"));
-            EntityFactory factory = new EntityFactory(obj.getJSONObject("config"));
-            game.setEntityFactory(factory);
-            // build map
-            GameMap map = new GameMap();
-            map.setGame(game);
-            obj.getJSONArray("entities").forEach(e -> {
-                JSONObject jsonEntity = (JSONObject) e;
-                GraphNode newNode = GraphNodeFactory.createEntity(jsonEntity, game.getEntityFactory());
-                Entity entity = newNode.getEntities().get(0);
-    
-                if (newNode != null)
-                    map.addNode(newNode);
-    
-                if (entity instanceof Player)
-                    map.setPlayer((Player) entity);
-            });
-            game.setMap(map);
-            // build goal
-            if (!obj.isNull("goal-condition")) {
-                Goal goal = GoalFactory.createGoal(obj.getJSONObject("goal-condition"), obj.getJSONObject("config"));
-                game.setGoals(goal);
-            }
-            game.init();        
-        } catch (IOException e) {
-            obj = null;
+            input = new FileReader(file);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
         }
+        JsonObject json = JsonParser.parseReader(input).getAsJsonObject();
+        obj = new JSONObject(json.toString());
+        Game game = new Game(obj.getString("dungeonName"));
+        EntityFactory factory = new EntityFactory(obj.getJSONObject("config"));
+        game.setEntityFactory(factory);
+        // build map
+        GameMap map = new GameMap();
+        map.setGame(game);
+        obj.getJSONArray("entities").forEach(e -> {
+            JSONObject jsonEntity = (JSONObject) e;
+            GraphNode newNode = GraphNodeFactory.createEntity(jsonEntity, game.getEntityFactory());
+            Entity entity = newNode.getEntities().get(0);
+   
+            if (newNode != null)
+                map.addNode(newNode);
+   
+            if (entity instanceof Player)
+                map.setPlayer((Player) entity);
+        });
+        game.setMap(map);
+        // build goal
+        if (!obj.isNull("goal-condition")) {
+            Goal goal = GoalFactory.createGoal(obj.getJSONObject("goal-condition"), obj.getJSONObject("config"));
+            game.setGoals(goal);
+        }
+        game.init();
         return ResponseBuilder.getDungeonResponse(game);
     }
 
