@@ -2,15 +2,12 @@ package dungeonmania.mvp;
 
 import dungeonmania.DungeonManiaController;
 import dungeonmania.response.models.DungeonResponse;
-import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
 
 public class BasicGoalsTest {
 
@@ -142,7 +139,7 @@ public class BasicGoalsTest {
     //     List<EntityResponse> entities = res.getEntities();
     //     assertTrue(TestUtils.countEntityOfType(entities, "spider") == 1);
     //     assertTrue(TestUtils.countEntityOfType(entities, "zombie") == 1);
-        
+  
     //     // move player to right
     //     res = dmc.tick(Direction.RIGHT);
 
