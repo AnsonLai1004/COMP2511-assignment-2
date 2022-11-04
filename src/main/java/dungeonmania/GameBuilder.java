@@ -1,12 +1,16 @@
 package dungeonmania;
 
 import java.io.IOException;
+// import java.util.List;
+// import java.util.stream.Collectors;
+// import java.util.stream.StreamSupport;
 
 import org.json.JSONObject;
 
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.Player;
+// import dungeonmania.entities.SwampTile;
 import dungeonmania.goals.Goal;
 import dungeonmania.goals.GoalFactory;
 import dungeonmania.map.GameMap;
@@ -96,4 +100,43 @@ public class GameBuilder {
             game.setGoals(goal);
         }
     }
+
+    // public void Overlaps(Game game) {
+    //     GameMap map = game.getMap();
+    //     List<SwampTile> swampTile = map.getEntities(SwampTile.class);
+    //     swampTile.forEach(s -> {
+    //         JSONObject swampJSON = StreamSupport.stream(dungeon.getJSONArray("entities").spliterator(), false)
+    //                                             .map(it -> (JSONObject) it)
+    //                                             .filter(it -> it.getString("id") == s.getId())
+    //                                             .collect(Collectors.toList())
+    //                                             .get(0);
+    //         swampJSON.getJSONArray("stuck").forEach(e -> {
+    //             JSONObject entJSON = (JSONObject) e;
+    //             Entity stuckEnt = map.getEntity(entJSON.getString("id"));
+    //             s.setMovementFactor(entJSON.getInt("turnsLeft"));
+    //             s.onOverlap(map, stuckEnt);
+    //         });
+    //         s.setMovementFactor(swampJSON.getInt("movement_factor"));
+    //     });
+    // }
+
+    // public Game reloadGame() {
+    //     reloadConfig();
+    //     reloadDungeon();
+    //     if (dungeon == null && config == null) {
+    //         return null; // something went wrong
+    //     }
+
+    //     Game game = new Game(dungeonName);
+    //     EntityFactory factory = new EntityFactory(config);
+    //     game.setEntityFactory(factory);
+    //     game.setTick(dungeon.getInt("tick") - 1);
+    //     reloadMap(game);
+    //     reloadBattles(game);
+    //     buildGoals(game);
+    //     game.reloadInit(dungeon.getString("id"), dungeon.getInt("tick"),
+    //                     dungeon.getInt("treasure"), dungeon.getInt("enemies"));
+    //     Overlaps(game);
+    //     return game;
+    // }
 }

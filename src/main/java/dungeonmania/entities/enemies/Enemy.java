@@ -9,12 +9,14 @@ import dungeonmania.battles.BattleStatistics;
 import dungeonmania.battles.Battleable;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.Player;
+import dungeonmania.entities.SwampTile;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
 public abstract class Enemy extends Entity implements Battleable {
     private BattleStatistics battleStatistics;
     private Random randGen = new Random();
+    private SwampTile curSwamp;
 
     public Enemy(Position position, double health, double attack) {
         super(position.asLayer(Entity.CHARACTER_LAYER));
@@ -72,5 +74,13 @@ public abstract class Enemy extends Entity implements Battleable {
 
     public double getHealth() {
         return battleStatistics.getHealth();
+    }
+
+    public SwampTile getCurSwamp() {
+        return curSwamp;
+    }
+
+    public void setCurSwamp(SwampTile curSwamp) {
+        this.curSwamp = curSwamp;
     }
 }

@@ -1,7 +1,7 @@
 package dungeonmania.entities;
 
 import dungeonmania.Game;
-import dungeonmania.entities.buildables.Armour;
+import dungeonmania.entities.buildables.MidnightArmour;
 import dungeonmania.entities.Logical.LightBulb;
 import dungeonmania.entities.Logical.SwitchDoor;
 import dungeonmania.entities.buildables.Bow;
@@ -111,10 +111,10 @@ public class EntityFactory {
         return new Bow(bowDurability);
     }
 
-    public Armour buildArmour() {
+    public MidnightArmour buildMidnightArmour() {
         int armourAttack = config.optInt("midnight_armour_attack");
         int armourDefence = config.optInt("midnight_armour_defence");
-        return new Armour(armourAttack, armourDefence);
+        return new MidnightArmour(armourAttack, armourDefence);
     }
 
     public Sceptre buildSceptre() {
@@ -200,6 +200,8 @@ public class EntityFactory {
             return new Door(pos, jsonEntity.getInt("key"));
         case "key":
             return new Key(pos, jsonEntity.getInt("key"));
+        case "midnight_armour":
+            return buildMidnightArmour();
         default:
             return null;
         }

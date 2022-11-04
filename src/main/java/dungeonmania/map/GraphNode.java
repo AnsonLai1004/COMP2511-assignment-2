@@ -59,4 +59,8 @@ public class GraphNode {
     public Position getPosition() {
         return position;
     }
+
+    public boolean canMoveAway(GameMap map, Entity entity) {
+        return entities.stream().allMatch(e -> e.canMoveAway(map, entity));
+    }
 }

@@ -65,7 +65,7 @@
             "x": 9,
             "y": 2
         }, {
-            "type": "zombie_toast_spawner",
+            "type": "zombie_toast",
             "x": 9,
             "y": 1
         }, {

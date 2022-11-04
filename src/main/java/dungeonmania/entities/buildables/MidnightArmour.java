@@ -3,12 +3,12 @@ package dungeonmania.entities.buildables;
 import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 
-public class Armour extends Buildable {
+public class MidnightArmour extends Buildable {
 
     private int armourAttack;
     private int armourDefence;
 
-    public Armour(int armourAttack, int armourDefence) {
+    public MidnightArmour(int armourAttack, int armourDefence) {
         super(null);
         this.armourAttack = armourAttack;
         this.armourDefence = armourDefence;

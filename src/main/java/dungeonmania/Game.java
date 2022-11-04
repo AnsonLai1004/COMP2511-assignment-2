@@ -288,4 +288,9 @@ public class Game {
     public int getEnemiesDefeated() {
         return defeated;
     }
+
+    // public void setTick(int tickCount) {
+    //     this.tickCount = tickCount;
+    // }
+
 }

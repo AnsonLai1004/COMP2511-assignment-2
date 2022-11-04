@@ -228,7 +228,7 @@ public class BuildablesTest {
     @Test
     @Tag("5-7")
     @DisplayName("Test building a midnight armour")
-    public void buildArmour() {
+    public void buildMidnightArmour() {
         DungeonManiaController dmc;
         dmc = new DungeonManiaController();
         DungeonResponse res = dmc.newGame("midnight_armour", "simple");
