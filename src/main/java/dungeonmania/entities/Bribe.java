@@ -17,11 +17,19 @@ public class Bribe {
      * @return
      */
     public boolean canBeBribed(Player player, Bribeable entity) {
+       
+        Position playerPos = player.getPosition();
+        Position entityPos = ((Entity) entity).getPosition();
+        int x_diff = Math.abs(playerPos.getX() - entityPos.getX());
+        int y_diff = Math.abs(playerPos.getY() - entityPos.getY());
+        if (x_diff > entity.getBribeRadius() || y_diff > entity.getBribeRadius()) {
+            return false;
+        }
         Sceptre sceptre = player.getInventory().getFirst(Sceptre.class);
         if (sceptre != null) {
             return true;
         }
-        return entity.getBribeRadius() >= 0 && player.countEntityOfType(Treasure.class) >= entity.getBribeAmount();
+        return player.countEntityOfType(Treasure.class) >= entity.getBribeAmount();
     }
 
     /**
